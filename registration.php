@@ -17,8 +17,8 @@
 		// echo $st_mobile . "<br>"; 
 
 		// Count Mobile And Email
-		$countMobile = DataRowCount('student','mobile', $st_mobile);
-		$countEmail = DataRowCount('student','email', $st_email);
+		$countMobile = dataRowCount('student','mobile', $st_mobile);
+		$countEmail = dataRowCount('student','email', $st_email);
 		echo $countMobile;
 
 		if(empty($st_name)){
@@ -71,7 +71,7 @@
 		}
 		else{
 			$rdate = date('Y-m-d h:i:s');
-			$pass = sha1($pass);
+			$pass = SHA1($pass);
 
 			$insert = $pdo->prepare('INSERT INTO student(
 				name,
@@ -100,7 +100,7 @@
 			));
 
 			if($insertStatus == true){
-				$success = "Student Registration Successful.";
+				$success = "YOur Registration Successful.";
 			}
 			else{
 				$error = "Registration Failed, Try again!";

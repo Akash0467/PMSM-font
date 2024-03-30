@@ -28,11 +28,20 @@ catch(PDOException $m){
 //     $count = $stm->RowCount();
 //     return $count;
 // }
- function DataRowCount($tbl,$col,$val){
+ function dataRowCount($tbl,$col,$val){
     global $pdo;
 
     $stm=$pdo->prepare("SELECT $col FROM $tbl WHERE $col=?");
     $stm->execute(array($val));
     $res=$stm->rowCount();
+    return $res;
+ }
+
+ function getData($tbl,$col){
+    global $pdo;
+
+    $stm=$pdo->prepare("SELECT $col FROM $tbl");
+    $stm->execute(array());
+    $res=$stm->fetch(PDO::FETCH_ASSOC);
     return $res;
  }

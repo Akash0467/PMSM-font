@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,8 +76,12 @@
 									<option data-icon="flag flag-us">English US</option>
 								</select>
 							</li>
-							<li><a href="login.php">Login</a></li>
-							<li><a href="registration.php">Register</a></li>
+							<?php if(isset($_SESSION['logindata'])) : ?>
+								<li><a href="dashboard/index.php">Student Dashboard</a></li>
+							<?php else : ?>
+								<li><a href="login.php">Login</a></li>
+								<li><a href="registration.php">Register</a></li>
+							<?php endif; ?>
 						</ul>
 					</div>
 				</div>
@@ -87,7 +92,7 @@
                 <div class="container clearfix">
 					<!-- Header Logo ==== -->
 					<div class="menu-logo">
-						<a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+						<a href="index.php"><img src="assets/images/logo.png" alt=""></a>
 					</div>
 					<!-- Mobile Nav Button ==== -->
                     <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +123,7 @@
 					<!-- Navigation Menu ==== -->
                     <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
 						<div class="menu-logo">
-							<a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+							<a href="index.php"><img src="assets/images/logo1.png" alt=""></a>
 						</div>
                         <ul class="nav navbar-nav">	
 							<li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
@@ -185,7 +190,7 @@
 									<li><a href="blog-details.html">Blog Details</a></li>
 								</ul>
 							</li>
-							<li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
+							<li class="nav-dashboard"><a href="dashboard/index.php">Student Dashboard <i class="fa fa-chevron-down"></i></a>
 								<ul class="sub-menu">
 									<li><a href="admin/index.html">Dashboard</a></li>
 									<li><a href="admin/add-listing.html">Add Listing</a></li>

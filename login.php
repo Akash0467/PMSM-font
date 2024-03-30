@@ -1,17 +1,54 @@
 <?php 
 	require_once("config.php");
-	if(isset($_POST["st_login_btn"])){
+	session_start();
 
-		$st_emphone = $_POST["st_emphone"];
+	if(isset($_POST["st_login_btn"])){
+		$st_username = $_POST["st_username"];
 		$st_pass = $_POST["st_pass"];
 
-		if(empty($st_emphone)){
+		// $dbPassword=getData('student','password');
+		// echo $dbPassword;
+
+		// echo $st_username;
+		// echo $st_pass;
+
+		if(empty($st_username)){
 			$error="Email or Mobile Number is Required!";
 		}
 		elseif(empty($st_pass)){
 			$error="Password is requred!";
 		}
+		// elseif($dbPassword != SHA1('st_pass')){
+		// 	$error="afsgggfgn";
+		// }
+		else{
+			$st_pass = SHA1($st_pass);
+
+			$data = $pdo->prepare("SELECT id, email, mobile, password FROM student WHERE (email=? OR mobile=?) AND password=?");
+			$data->execute(array($st_username,$st_username,$st_pass));
+			$count=$data->rowCount();
+
+			echo $count;
+			echo "<br>";
+			if($count == true){
+				$stdata = $data->fetchAll(PDO::FETCH_ASSOC);
+				print_r($stdata);
+				
+				$_SESSION['logindata'] = $stdata;
+
+				
+				header('location:dashboard/index.php');
+				
+			}
+			else{
+				$error = "Username or Password is wrong!";
+			}
+
+		}
 		
+	};
+	if(isset($_SESSION['logindata'])){
+		header('location:dashboard/index.php');
 	}
 
 
@@ -96,7 +133,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<label>Email or Mobile Number</label>
-									<input name="st_emphone" type="text" class="form-control">
+									<input name="st_username" type="text" class="form-control">
 								</div>
 							</div>
 						</div>
