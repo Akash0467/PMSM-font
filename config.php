@@ -13,21 +13,6 @@ catch(PDOException $m){
 }
 // Count any columm valu form students table
 
-// function stRowCount($tbl, $col, $val){
-//     global $pdo;
-//     $stm=$pdo->prepare("SELECT $col FROM $tbl WHERE $col=? ");
-//     $stm->execute(array($val));
-//     $count = $stm->rowCount();
-//     return $count;
-// }
-
-// function sRowCount($col, $val){
-//     global $pdk;
-//     $stm = $pdk->prepare("SELECT $col FORM student WHERE $col=?");
-//     $stm->execute(array($val));
-//     $count = $stm->RowCount();
-//     return $count;
-// }
  function dataRowCount($tbl,$col,$val){
     global $pdo;
 
@@ -37,11 +22,12 @@ catch(PDOException $m){
     return $res;
  }
 
- function getData($tbl,$col){
+function Student($col,$id){
     global $pdo;
+    $stm=$pdo->prepare("SELECT $col FROM student WHERE id=?");
+    $stm->execute(array($id));
+    $result =$stm->fetchAll(PDO::FETCH_ASSOC);
+    return $result[0][$col];
+}
 
-    $stm=$pdo->prepare("SELECT $col FROM $tbl");
-    $stm->execute(array());
-    $res=$stm->fetch(PDO::FETCH_ASSOC);
-    return $res;
- }
+
